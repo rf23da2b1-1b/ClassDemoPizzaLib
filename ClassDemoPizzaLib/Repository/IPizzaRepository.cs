@@ -9,5 +9,8 @@ namespace ClassDemoPizzaLib.Repository
         IPizza GetById(int id);
         IPizza Opret(IPizza pizza);
         IPizza Update(int id, IPizza updatePizza);
+
+        List<IPizza> GetSortByName();
+        List<IPizza> GetByFilter(double? lowPrice = 0, double? highPrice = double.MaxValue);
     }
 }

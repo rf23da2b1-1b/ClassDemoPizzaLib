@@ -23,7 +23,13 @@ namespace ClassDemoPizzaLib.Repository
 
         private void PopulateList()
         {
+
             _data.Add(new Pizza1(1, "peters", "den gode pizza", 45));
+            _data.Add(new Pizza1(2, "martin", "valhal pizza", 56));
+            _data.Add(new Pizza1(3, "jesper", "greve pizza", 45));
+            _data.Add(new Pizza1(4, "anders", "balders pizza", 45));
+            _data.Add(new Pizza1(5, "vibeke", "vanæløse pizza", 45));
+
         }
 
         /*
@@ -70,6 +76,24 @@ namespace ClassDemoPizzaLib.Repository
         private int GenNextId()
         {
             return (_data.Count == 0) ? 1 : _data.Max(p => p.Id) + 1;
+        }
+
+        public List<IPizza> GetSortByName()
+        {
+            List<IPizza> pizzas = new List<IPizza>(_data);
+            pizzas.Sort(SortByName);
+            return pizzas;
+        }
+
+        private int SortByName(IPizza x, IPizza y)
+        {
+            return x.Name.CompareTo(y.Name);
+        }
+
+        public List<IPizza> GetByFilter(double? lowPrice = 0, double? highPrice = double.MaxValue)
+        {
+            List<IPizza> pizzas = new List<IPizza>(_data);
+            return pizzas.Where(p => lowPrice <= p.Price && p.Price <= highPrice).ToList(); 
         }
     }
 }
